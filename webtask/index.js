@@ -1,15 +1,10 @@
-'use latest';
-
-import spawn from 'spawn-command';
+import {spawn} from 'child_process';
+import rebaseAndMergeScript from './rebase-and-merge.sh';
 
 export default rebaseAndMerge;
 
 function rebaseAndMerge(context, cb) {
-  const {baseRepo, baseBranch, prRepo, prBranch, dryRun} = getPRData(context);
-  spawn(
-    `./rebase-and-merge.sh ${baseRepo} ${baseBranch} ${prRepo} ${prBranch} ${dryRun}`,
-    {stdio: 'inherit'}
-  ).on('exit', exitCode => {
+  spawn('/bin/sh', ['-c', getScript(getPRData(context))], {stdio: 'inherit'}).on('exit', exitCode => {
     let error = null;
     let response = 'Success';
     if (exitCode !== 0) {
@@ -33,5 +28,10 @@ function getPRData(context) {
 
 function addAuthTokenToRepoUrl(token, url) {
   return url.replace('https://', `https://${token}@`);
+}
+
+function getScript({baseRepo, baseBranch, prRepo, prBranch, dryRun}) {
+  const args = [baseRepo, baseBranch, prRepo, prBranch, dryRun];
+  return rebaseAndMergeScript.replace(/\$(\d)+?/g, (match, number) => args[number - 1]);
 }
 

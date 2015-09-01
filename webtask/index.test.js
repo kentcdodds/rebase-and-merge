@@ -1,7 +1,5 @@
-import webtask from './index';
+import webtask from './bundle.ignored';
 import {expect} from 'chai';
-
-webtask.dryRun = true;
 
 describe('webtask', () => {
   it('should work in a basic case', function(done) {
