@@ -96,3 +96,11 @@ Then click your bookmarklet
 Then it's rebased and merged!
 
 
+## FAQ
+
+Q: How do I know you're not stealing my token
+
+A: Look at the code in `webtask/` and you'll see there's nothing in there to steal your token. And you'll also notice
+that anywhere there's a log or any display of information, your token is hidden from the output. Don't worry, you're
+fine :-)
+
