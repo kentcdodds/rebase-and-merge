@@ -14,7 +14,7 @@ PR_BRANCH=$4
 DRY_RUN=$5
 
 if [ ! "$TMPDIR" ]; then
-  TMPDIR="/tmp"
+  TMPDIR="/tmp/"
 fi
 
 rm_echo "BASE_REPO: ${BASE_REPO}"

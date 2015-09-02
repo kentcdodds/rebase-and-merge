@@ -12,7 +12,7 @@ function rebaseAndMerge(context, cb) {
   if (script instanceof Error) {
     return cb(cleanError(script));
   }
-  exec(script, (error, stdout = '', stderr = '') => {
+  exec(script, {shell: '/bin/bash'}, (error, stdout = '', stderr = '') => {
     stdout = hideToken(stdout);
     stderr = hideToken(stderr);
     error = cleanError(error);
