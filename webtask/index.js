@@ -34,6 +34,6 @@ function addAuthTokenToRepoUrl(token, url) {
 function getScript({baseRepo, baseBranch, prRepo, prBranch, dryRun}) {
   const args = [baseRepo, baseBranch, prRepo, prBranch, dryRun];
   console.log('Calling Script with args: ', args.join(' ').replace(/https\:\/\/.*?@/g, 'https://token-hidden@'));
-  return rebaseAndMergeScript.replace(/\$(\d)+?/g, (match, number) => args[number - 1]);
+  return rebaseAndMergeScript.replace(/\$(\d)+?/g, (match, number) => `"${args[number - 1]}"`);
 }
 

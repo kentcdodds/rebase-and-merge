@@ -51,5 +51,5 @@ run_git pull "$PR_REPO" "$PR_BRANCH"
 run_git rebase origin/"$BASE_BRANCH"
 run_git checkout "$BASE_BRANCH"
 run_git merge --ff-only "$PR_BRANCH_ALIAS"
-run_git push origin master
+run_git push origin "$BASE_BRANCH"
 
