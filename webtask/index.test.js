@@ -14,10 +14,14 @@ describe('webtask', () => {
       // 2. we clone the repo into a temp directory (not being specific about that though for differing systems)
       // 3. We execute the right git commands in the right order
       expect(response.stdout).to.match(new RegExp([
+        '> R&M >> USER_NAME: Kent C. Dodds',
+        '> R&M >> USER_EMAIL: kent@doddsfamily.us',
         '> R&M >> BASE_REPO: https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git',
         '> R&M >> BASE_BRANCH: master',
         '> R&M >> PR_REPO: https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git',
         '> R&M >> PR_BRANCH: kentcdodds-patch-1',
+        '> R&M >> DRY_RUN of git config user.name Kent C. Dodds',
+        '> R&M >> DRY_RUN of git config user.email kent@doddsfamily.us',
         '> R&M >> DRY_RUN of git clone https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git /.*?/kentcdodds-patch-1',
         '> R&M >> DRY_RUN of git fetch origin',
         '> R&M >> DRY_RUN of git checkout -b PR_kentcdodds-patch-1 master',
@@ -32,14 +36,13 @@ describe('webtask', () => {
     });
   });
 
-  ['baseRepo', 'baseBranch', 'prRepo', 'prBranch'].forEach(item => {
+  ['userName', 'userEmail', 'baseRepo', 'baseBranch', 'prRepo', 'prBranch'].forEach(item => {
     it(`should throw an error when missing ${item}`, () => {
       const context = getTestContext();
       delete context.data[item];
       webtask(context, (err, response) => {
         expect(err).to.be.an.instanceof(Error);
         expect(response).to.not.exist;
-        console.log(err);
       });
     });
   });
@@ -48,6 +51,8 @@ describe('webtask', () => {
 function getTestContext() {
   return {
     data: {
+      userName: 'Kent C. Dodds',
+      userEmail: 'kent@doddsfamily.us',
       baseRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
       baseBranch: 'master',
       prRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',

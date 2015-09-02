@@ -24,11 +24,6 @@ function rebaseAndMerge(context, cb) {
     if (stdout) {
       console.log('stdout:', stdout);
     }
-    try {
-      data.tmpDir.removeCallback();
-    } catch (e) {
-      console.error('Failed to remove tempDir', e);
-    }
     cb(error, response);
   });
 }
@@ -40,6 +35,8 @@ function getPRData(context) {
   }
   const addToken = addAuthTokenToRepoUrl.bind(null, token);
   return {
+    userName: context.data.userName,
+    userEmail: context.data.userEmail,
     baseRepo: addToken(context.data.baseRepo || ''),
     baseBranch: context.data.baseBranch || '',
     prRepo: addToken(context.data.prRepo || ''),
@@ -54,16 +51,29 @@ function addAuthTokenToRepoUrl(token, url) {
 }
 
 function getScript(data) {
-  const {baseRepo, baseBranch, prRepo, prBranch, tmpDir, dryRun} = data;
-  if (!baseRepo || !baseBranch || !prRepo || !prBranch) {
-    return new Error([
-      'Missing required query params. Must have `baseRepo`, `baseBranch`, `prRepo`, and `prBranch`',
-      'Passed:', 'baseRepo: ' + baseRepo, 'baseBranch: ' + baseBranch, 'prRepo: ' + prRepo, 'prBranch: ' + prBranch
-    ].join('\n'));
+  const {userName, userEmail, baseRepo, baseBranch, prRepo, prBranch, tmpDir, dryRun} = data;
+  const dataError = checkData();
+  if (dataError instanceof Error) {
+    return dataError;
   }
-  const args = [baseRepo, baseBranch, prRepo, prBranch, tmpDir.name, dryRun];
+  const args = [userName, userEmail, baseRepo, baseBranch, prRepo, prBranch, tmpDir.name, dryRun];
   console.log('Calling Script with args: ', hideToken(args.join(' ')));
   return rebaseAndMergeScript.replace(/\$(\d)+?/g, (match, number) => `"${args[number - 1]}"`);
+
+  function checkData() {
+    if (!userName || !userEmail || !baseRepo || !baseBranch || !prRepo || !prBranch) {
+      return new Error([
+        'Missing required query params. Must have `baseRepo`, `baseBranch`, `prRepo`, and `prBranch`',
+        'Passed:',
+        'userName: ' + userName,
+        'userEmail: ' + userEmail,
+        'baseRepo: ' + baseRepo,
+        'baseBranch: ' + baseBranch,
+        'prRepo: ' + prRepo,
+        'prBranch: ' + prBranch
+      ].join('\n'));
+    }
+  }
 }
 
 function cleanError(error) {

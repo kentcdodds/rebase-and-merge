@@ -6,14 +6,18 @@ rm_echo () {
   echo "> R&M >>" ${@/https:\/\/*@/https:\/\/token-hidden@}
 }
 
-BASE_REPO=$1
-BASE_BRANCH=$2
+USER_NAME=$1
+USER_EMAIL=$2
+BASE_REPO=$3
+BASE_BRANCH=$4
 
-PR_REPO=$3
-PR_BRANCH=$4
-TMP_DIR=$5
-DRY_RUN=$6
+PR_REPO=$5
+PR_BRANCH=$6
+TMP_DIR=$7
+DRY_RUN=$8
 
+rm_echo "USER_NAME: ${USER_NAME}"
+rm_echo "USER_EMAIL: ${USER_EMAIL}"
 rm_echo "BASE_REPO: ${BASE_REPO}"
 rm_echo "BASE_BRANCH: ${BASE_BRANCH}"
 rm_echo "PR_REPO: ${PR_REPO}"
@@ -31,8 +35,10 @@ run_git () {
   fi
 }
 
-rm -rf "$REPO_DIR"
 mkdir "$REPO_DIR"
+
+run_git config user.name "$USER_NAME"
+run_git config user.email "$USER_EMAIL"
 
 run_git clone "$BASE_REPO" "$REPO_DIR"
 cd "$REPO_DIR"
