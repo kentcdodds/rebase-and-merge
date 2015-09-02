@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "deploy": "npm run build && wt -n rebase-and-merge bundle.ignored.js",
+    "deploy": "npm run build && wt create -n rebase-and-merge bundle.ignored.js",
     "test": "mocha index.test.js --compilers js:babel/register",
     "test:watch": "mocha index.test.js -w --compilers js:babel/register"
   },
