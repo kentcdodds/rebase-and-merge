@@ -2,7 +2,7 @@
 
 set -e # exit if there are any failures
 
-function rm_echo() {
+rm_echo () {
   echo "> R&M >>" ${@/https:\/\/*@/https:\/\/token-hidden@}
 }
 
@@ -14,23 +14,18 @@ PR_BRANCH=$4
 DRY_RUN=$5
 
 if [ ! "$TMPDIR" ]; then
-  TMPDIR=/tmp
+  TMPDIR="/tmp"
 fi
 
-if [[ -z "$BASE_REPO" ]] || [[ -z "$BASE_BRANCH" ]] || [[ -z "$PR_REPO" ]] || [[ -z "$PR_BRANCH" ]]; then
-  rm_echo "Must pass BASE_REPO, BASE_BRANCH, PR_REPO, and PR_BRANCH"
-  exit 0;
-else
-  rm_echo "BASE_REPO: ${BASE_REPO}"
-  rm_echo "BASE_BRANCH: ${BASE_BRANCH}"
-  rm_echo "PR_REPO: ${PR_REPO}"
-  rm_echo "PR_BRANCH: ${PR_BRANCH}"
-fi
+rm_echo "BASE_REPO: ${BASE_REPO}"
+rm_echo "BASE_BRANCH: ${BASE_BRANCH}"
+rm_echo "PR_REPO: ${PR_REPO}"
+rm_echo "PR_BRANCH: ${PR_BRANCH}"
 
 REPO_DIR=$TMPDIR$PR_BRANCH
 PR_BRANCH_ALIAS=PR_$PR_BRANCH
 
-function run_git() {
+run_git () {
   if [ ! "$DRY_RUN" ]; then
     rm_echo "running git $*"
     git "$@"

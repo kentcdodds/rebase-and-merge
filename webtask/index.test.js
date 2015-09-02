@@ -4,16 +4,7 @@ import {expect} from 'chai';
 describe('webtask', () => {
   it('should work in a basic case', function(done) {
     this.timeout(5000);
-    webtask({
-      data: {
-        baseRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
-        baseBranch: 'master',
-        prRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
-        prBranch: 'kentcdodds-patch-1',
-        dryRun: true,
-        token: 'WHATEVER_YOU_HAVE'
-      }
-    }, (err, response) => {
+    webtask(getTestContext(), (err, response) => {
       expect(err).to.be.null;
       expect(response.type).to.equal('Success');
       expect(response.stderr).to.be.empty;
@@ -40,4 +31,29 @@ describe('webtask', () => {
       done();
     });
   });
+
+  ['baseRepo', 'baseBranch', 'prRepo', 'prBranch'].forEach(item => {
+    it(`should throw an error when missing ${item}`, () => {
+      const context = getTestContext();
+      delete context.data[item];
+      webtask(context, (err, response) => {
+        expect(err).to.be.an.instanceof(Error);
+        expect(response).to.not.exist;
+        console.log(err);
+      });
+    });
+  });
 });
+
+function getTestContext() {
+  return {
+    data: {
+      baseRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
+      baseBranch: 'master',
+      prRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
+      prBranch: 'kentcdodds-patch-1',
+      dryRun: true,
+      token: 'WHATEVER_YOU_HAVE'
+    }
+  };
+}
