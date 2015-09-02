@@ -19,16 +19,16 @@ describe('webtask', () => {
         '> R&M >> BASE_REPO: https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git',
         '> R&M >> BASE_BRANCH: master',
         '> R&M >> PR_REPO: https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git',
-        '> R&M >> PR_BRANCH: kentcdodds-patch-1',
+        '> R&M >> PR_BRANCH: pr/thing\\\\kentcdodds-patch-1',
+        '> R&M >> DRY_RUN of git clone https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git /.*?/pr.thing.kentcdodds-patch-1',
         '> R&M >> DRY_RUN of git config user.name Kent C. Dodds',
         '> R&M >> DRY_RUN of git config user.email kent@doddsfamily.us',
-        '> R&M >> DRY_RUN of git clone https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git /.*?/kentcdodds-patch-1',
         '> R&M >> DRY_RUN of git fetch origin',
-        '> R&M >> DRY_RUN of git checkout -b PR_kentcdodds-patch-1 master',
-        '> R&M >> DRY_RUN of git pull https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git kentcdodds-patch-1',
+        '> R&M >> DRY_RUN of git checkout -b PR_pr/thing\\\\kentcdodds-patch-1 master',
+        '> R&M >> DRY_RUN of git pull https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git pr/thing\\\\kentcdodds-patch-1',
         '> R&M >> DRY_RUN of git rebase origin/master',
         '> R&M >> DRY_RUN of git checkout master',
-        '> R&M >> DRY_RUN of git merge --ff-only PR_kentcdodds-patch-1',
+        '> R&M >> DRY_RUN of git merge --ff-only PR_pr/thing\\\\kentcdodds-patch-1',
         '> R&M >> DRY_RUN of git push origin master',
         ''
       ].join('\n')));
@@ -56,7 +56,7 @@ function getTestContext() {
       baseRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
       baseBranch: 'master',
       prRepo: 'https://github.com/kentcdodds/rebase-and-merge-test.git',
-      prBranch: 'kentcdodds-patch-1',
+      prBranch: 'pr/thing\\kentcdodds-patch-1',
       dryRun: true,
       token: 'WHATEVER_YOU_HAVE'
     }

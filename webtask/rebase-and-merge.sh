@@ -3,7 +3,7 @@
 set -e # exit if there are any failures
 
 rm_echo () {
-  echo "> R&M >>" ${@/https:\/\/*@/https:\/\/token-hidden@}
+  echo "> R&M >>" ${@//https:\/\/*@/https:\/\/token-hidden@}
 }
 
 USER_NAME=$1
@@ -23,7 +23,7 @@ rm_echo "BASE_BRANCH: ${BASE_BRANCH}"
 rm_echo "PR_REPO: ${PR_REPO}"
 rm_echo "PR_BRANCH: ${PR_BRANCH}"
 
-REPO_DIR=$TMP_DIR/$PR_BRANCH
+REPO_DIR=$TMP_DIR/${PR_BRANCH//[\/|\\]/.}
 PR_BRANCH_ALIAS=PR_$PR_BRANCH
 
 run_git () {
