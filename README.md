@@ -1,13 +1,38 @@
 # rebase-and-merge
 
+## What❓
+
+When you want to merge a PR, you click the "Merge Pull Request" button. When you click that button, GitHub will run the merge command with the `--no-ff` option
+([source](https://help.github.com/articles/merging-a-pull-request/)). What this means is you get an additional commit in your git history (even if it's not needed).
+
+This gives you the ability to easily rebase and perform [a fast forward merge](http://ariya.ofilabs.com/2013/09/fast-forward-git-merge.html).
+
+## Why? 😕
+
+When not doing a fast forward merge, your git history looks like this:
+
+![bad-history](other/bad-history.png)
+
+Chaos. This makes it pretty difficult to figure out what code is where and when and how it got there.
+
+When you rebase and only do fast forward merges, you get a git history that looks like this:
+
+![clean-history](other/clean-history.png)
+
+A nice, clean, straight line. This makes it sooooo much nicer!
+
+Unfortunately, GitHub is silent on whether it will ever allow fast-forward merges for merges by default. So I created this to do it for you!
+
+## How? 😎
+
 This is still a work in progress. The goal is to eventually make a Chrome Extension that adds a `Rebase and Merge`
 button:
 
 ![rebase-and-merge](other/rebase-and-merge.png)
 
-For now, you'll have to do a few things to get this working. But it should work just fine!
+For now, it's just a bookmarklet. You'll have to do a few things to get this working. But it should work just fine!
 
-First you're going to need to [create a personal token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) that has `repo` access.
+First you're going to need to [create a personal token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) that has `repo` access (doesn't need anything else).
 
 Then you'll want to alter this JavaScript so it has your information for the `token`, `userName`, and `userEmail`.
 
