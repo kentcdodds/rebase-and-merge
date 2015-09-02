@@ -20,7 +20,7 @@ describe('webtask', () => {
         '> R&M >> BASE_BRANCH: master',
         '> R&M >> PR_REPO: https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git',
         '> R&M >> PR_BRANCH: pr/thing\\\\kentcdodds-patch-1',
-        '> R&M >> DRY_RUN of git clone https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git /.*?/pr.thing.kentcdodds-patch-1',
+        '> R&M >> DRY_RUN of git clone https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git /.*?',
         '> R&M >> DRY_RUN of git config user.name Kent C. Dodds',
         '> R&M >> DRY_RUN of git config user.email kent@doddsfamily.us',
         '> R&M >> DRY_RUN of git fetch origin',

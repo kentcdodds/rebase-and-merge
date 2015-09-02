@@ -23,7 +23,6 @@ rm_echo "BASE_BRANCH: ${BASE_BRANCH}"
 rm_echo "PR_REPO: ${PR_REPO}"
 rm_echo "PR_BRANCH: ${PR_BRANCH}"
 
-REPO_DIR=$TMP_DIR/${PR_BRANCH//[\/|\\]/.}
 PR_BRANCH_ALIAS=PR_$PR_BRANCH
 
 run_git () {
@@ -35,10 +34,8 @@ run_git () {
   fi
 }
 
-mkdir "$REPO_DIR"
-
-run_git clone "$BASE_REPO" "$REPO_DIR"
-cd "$REPO_DIR"
+run_git clone "$BASE_REPO" "$TMP_DIR"
+cd "$TMP_DIR"
 
 run_git config user.name "$USER_NAME"
 run_git config user.email "$USER_EMAIL"
