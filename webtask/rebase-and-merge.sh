@@ -37,11 +37,11 @@ run_git () {
 
 mkdir "$REPO_DIR"
 
-run_git config user.name "$USER_NAME"
-run_git config user.email "$USER_EMAIL"
-
 run_git clone "$BASE_REPO" "$REPO_DIR"
 cd "$REPO_DIR"
+
+run_git config user.name "$USER_NAME"
+run_git config user.email "$USER_EMAIL"
 
 run_git fetch origin
 run_git checkout -b "$PR_BRANCH_ALIAS" "$BASE_BRANCH"
