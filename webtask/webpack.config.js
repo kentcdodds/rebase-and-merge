@@ -6,6 +6,9 @@ module.exports = {
     path: __dirname
   },
   target: 'node',
+  externals: {
+    tmp: 'commonjs tmp'
+  },
 
   module: {
     loaders: [

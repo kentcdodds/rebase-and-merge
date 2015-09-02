@@ -1,4 +1,5 @@
 import {exec} from 'child_process';
+import tmp from 'tmp';
 import rebaseAndMergeScript from './rebase-and-merge.sh';
 
 export default rebaseAndMerge;
@@ -23,6 +24,11 @@ function rebaseAndMerge(context, cb) {
     if (stdout) {
       console.log('stdout:', stdout);
     }
+    try {
+      data.tmpDir.removeCallback();
+    } catch (e) {
+      console.error('Failed to remove tempDir', e);
+    }
     cb(error, response);
   });
 }
@@ -38,6 +44,7 @@ function getPRData(context) {
     baseBranch: context.data.baseBranch || '',
     prRepo: addToken(context.data.prRepo || ''),
     prBranch: context.data.prBranch || '',
+    tmpDir: tmp.dirSync(),
     dryRun: context.data.dryRun || ''
   };
 }
@@ -47,14 +54,14 @@ function addAuthTokenToRepoUrl(token, url) {
 }
 
 function getScript(data) {
-  const {baseRepo, baseBranch, prRepo, prBranch, dryRun} = data;
+  const {baseRepo, baseBranch, prRepo, prBranch, tmpDir, dryRun} = data;
   if (!baseRepo || !baseBranch || !prRepo || !prBranch) {
     return new Error([
       'Missing required query params. Must have `baseRepo`, `baseBranch`, `prRepo`, and `prBranch`',
       'Passed:', 'baseRepo: ' + baseRepo, 'baseBranch: ' + baseBranch, 'prRepo: ' + prRepo, 'prBranch: ' + prBranch
     ].join('\n'));
   }
-  const args = [baseRepo, baseBranch, prRepo, prBranch, dryRun];
+  const args = [baseRepo, baseBranch, prRepo, prBranch, tmpDir.name, dryRun];
   console.log('Calling Script with args: ', hideToken(args.join(' ')));
   return rebaseAndMergeScript.replace(/\$(\d)+?/g, (match, number) => `"${args[number - 1]}"`);
 }

@@ -11,18 +11,15 @@ BASE_BRANCH=$2
 
 PR_REPO=$3
 PR_BRANCH=$4
-DRY_RUN=$5
-
-if [ ! "$TMPDIR" ]; then
-  TMPDIR="/tmp/"
-fi
+TMP_DIR=$5
+DRY_RUN=$6
 
 rm_echo "BASE_REPO: ${BASE_REPO}"
 rm_echo "BASE_BRANCH: ${BASE_BRANCH}"
 rm_echo "PR_REPO: ${PR_REPO}"
 rm_echo "PR_BRANCH: ${PR_BRANCH}"
 
-REPO_DIR=$TMPDIR$PR_BRANCH
+REPO_DIR=$TMP_DIR/$PR_BRANCH
 PR_BRANCH_ALIAS=PR_$PR_BRANCH
 
 run_git () {
