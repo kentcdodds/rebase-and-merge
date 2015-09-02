@@ -5,7 +5,7 @@ export default rebaseAndMerge;
 
 function rebaseAndMerge(context, cb) {
   const command = exec(getScript(getPRData(context)), {}, (error, stdout, stderr) => {
-    const response = !!error ? null : 'Success';
+    const response = !!error ? null : {type: 'Success', stdout, stderr};
     if (stderr) {
       console.error('stderr:', stderr);
     }
