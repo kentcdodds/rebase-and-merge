@@ -41,6 +41,7 @@ run_git config user.name "$USER_NAME"
 run_git config user.email "$USER_EMAIL"
 
 run_git fetch origin
+run_git checkout "$BASE_BRANCH"
 run_git checkout -b "$PR_BRANCH_ALIAS" "$BASE_BRANCH"
 run_git pull "$PR_REPO" "$PR_BRANCH"
 run_git rebase origin/"$BASE_BRANCH"

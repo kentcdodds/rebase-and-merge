@@ -24,6 +24,7 @@ describe('webtask', () => {
         '> R&M >> DRY_RUN of git config user.name Kent C. Dodds',
         '> R&M >> DRY_RUN of git config user.email kent@doddsfamily.us',
         '> R&M >> DRY_RUN of git fetch origin',
+        '> R&M >> DRY_RUN of git checkout master',
         '> R&M >> DRY_RUN of git checkout -b PR_pr/thing\\\\kentcdodds-patch-1 master',
         '> R&M >> DRY_RUN of git pull https://token-hidden@github.com/kentcdodds/rebase-and-merge-test.git pr/thing\\\\kentcdodds-patch-1',
         '> R&M >> DRY_RUN of git rebase origin/master',
