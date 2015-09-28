@@ -11,11 +11,13 @@ notifications:
 node_js:
   - "node"
 before_install:
+  - cd site
   - npm i -g npm@^3.0.0
 before_script:
   - npm prune
 script:
   - npm run lint
   - npm t
+deploy:
   - npm run deploy
 
