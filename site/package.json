@@ -5,7 +5,7 @@
   "description": "Website for rebase-and-merge",
   "main": "src/index.js",
   "scripts": {
-    "test": "karma start --single-run",
+    "test": "echo 'make tests!!'",
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
