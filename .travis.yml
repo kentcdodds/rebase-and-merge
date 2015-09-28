@@ -8,8 +8,6 @@ branches:
     - master
 notifications:
   email: false
-node_js:
-  - "node"
 before_install:
   - cd site
   - npm i -g npm@^3.0.0
