@@ -10,6 +10,8 @@
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "postbuild": "cp index.html dist/index.html",
+    "predeploy": "npm run build",
+    "deploy": "other/deploy.sh",
     "start": "node other/devServer.js",
     "lint": "eslint src"
   },
