@@ -16,6 +16,5 @@ before_script:
 script:
   - npm run lint
   - npm t
-deploy:
   - npm run deploy
 
