@@ -41,7 +41,8 @@ var params = {
   token: 'YOUR_TOKEN',
   userName: 'Your Name',
   userEmail: 'your@email.com',
-  baseRepo: /(http.*?github\.com\/.*?\/.*?)\/pull/.exec(location.href)[1]
+  baseRepo: /(http.*?github\.com\/.*?\/.*?)\/pull/.exec(location.href)[1],
+  depth: getDepth()
 };
 
 var ghHeaderMeta = document.querySelector('.gh-header-meta');
@@ -59,7 +60,9 @@ if (prRef.org) {
 
 var paramArray = [];
 Object.keys(params).forEach(function(key) {
-  paramArray.push(key + '=' + encodeURIComponent(params[key]));
+  if (params[key] !== undefined) {
+    paramArray.push(key + '=' + encodeURIComponent(params[key]));
+  }
 });
 
 
@@ -76,6 +79,13 @@ function getOrgAndBranch(commitRef) {
     branch = targets[0].innerText;
   }
   return {org: org, branch: branch};
+}
+
+function getDepth() {
+  const commitCount = parseInt(document.getElementById('commits_tab_counter').textContent.trim());
+  if (commitCount <=25) {
+    return commitCount * 2;
+  }
 }
 ```
 

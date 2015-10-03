@@ -13,8 +13,9 @@ BASE_BRANCH=$4
 
 PR_REPO=$5
 PR_BRANCH=$6
-TMP_DIR=$7
-DRY_RUN=$8
+DEPTH=$7
+TMP_DIR=$8
+DRY_RUN=$9
 
 rm_echo "USER_NAME: ${USER_NAME}"
 rm_echo "USER_EMAIL: ${USER_EMAIL}"
@@ -34,16 +35,16 @@ run_git () {
   fi
 }
 
-run_git clone "$BASE_REPO" "$TMP_DIR"
+run_git clone --depth=$DEPTH "$BASE_REPO" "$TMP_DIR"
 cd "$TMP_DIR"
 
 run_git config user.name "$USER_NAME"
 run_git config user.email "$USER_EMAIL"
 
-run_git fetch origin
+run_git fetch --depth=$DEPTH origin
 run_git checkout "$BASE_BRANCH"
 run_git checkout -b "$PR_BRANCH_ALIAS" "$BASE_BRANCH"
-run_git pull "$PR_REPO" "$PR_BRANCH"
+run_git pull --depth=$DEPTH "$PR_REPO" "$PR_BRANCH"
 run_git rebase origin/"$BASE_BRANCH"
 run_git checkout "$BASE_BRANCH"
 run_git merge --ff-only "$PR_BRANCH_ALIAS"
