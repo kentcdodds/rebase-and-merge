@@ -42,6 +42,7 @@ function getPRData(context) {
     prRepo: addToken(context.data.prRepo || ''),
     prBranch: context.data.prBranch || '',
     depth: context.data.depth || 20,
+    pushRebase: context.data.pushRebase === 'true',
     tmpDir: tmp.dirSync(),
     dryRun: context.data.dryRun || ''
   };
@@ -52,12 +53,12 @@ function addAuthTokenToRepoUrl(token, url) {
 }
 
 function getScript(data) {
-  const {userName, userEmail, baseRepo, baseBranch, prRepo, prBranch, depth, tmpDir, dryRun} = data;
+  const {userName, userEmail, baseRepo, baseBranch, prRepo, prBranch, depth, pushRebase, tmpDir, dryRun} = data;
   const dataError = checkData();
   if (dataError instanceof Error) {
     return dataError;
   }
-  const args = [userName, userEmail, baseRepo, baseBranch, prRepo, prBranch, depth, tmpDir.name, dryRun];
+  const args = [userName, userEmail, baseRepo, baseBranch, prRepo, prBranch, depth, pushRebase, tmpDir.name, dryRun];
   console.log('Calling Script with args: ', hideToken(args.join(' ')));
   return rebaseAndMergeScript.replace(/\$(\d)+?/g, (match, number) => `"${args[number - 1]}"`);
 
