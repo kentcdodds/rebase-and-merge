@@ -1,5 +1,9 @@
 # rebase-and-merge
 
+## Deprecation notice
+
+This has become unusable due to `webtask` shutting down the script. Please let me know if you know or made an alternative solution.
+
 ## What❓
 
 When you want to merge a PR, you click the "Merge Pull Request" button. When you click that button, GitHub will run the merge command with the `--no-ff` option
