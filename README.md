@@ -2,7 +2,7 @@
 
 ## Deprecation notice
 
-This has become unusable due to `webtask` shutting down the script. Please let me know if you know or made an alternative solution.
+This has become unusable due to `webtask` shutting down the script. For an alternative solution that is ***free*** *for open source projects*, check out [Remergr.io](http://remergr.io).
 
 ## What❓
 
