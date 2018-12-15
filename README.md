@@ -5,7 +5,7 @@
 This has become unusable due to `webtask` shutting down the script. See alternative solutions:
 
 1. [Native Github Support](https://github.com/blog/2243-rebase-and-merge-pull-requests)
-2. [Remergr.io](http://remergr.io) ***free*** *for open source projects*
+2. [Autorebase](https://github.com/tibdex/autorebase)
 
 ## What❓
 
